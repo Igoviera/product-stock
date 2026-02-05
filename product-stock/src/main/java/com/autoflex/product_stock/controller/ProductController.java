@@ -5,6 +5,8 @@ import com.autoflex.product_stock.dtos.ProductionSuggestionDTO;
 import com.autoflex.product_stock.model.Product;
 import com.autoflex.product_stock.repository.ProductRepository;
 import com.autoflex.product_stock.service.ProductService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +26,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public void create(@RequestBody Product product){
-        productService.create(product);
+    public ProductDTO create(@Valid @RequestBody ProductDTO productDTO){
+        return productService.create(productDTO);
     }
 
     @GetMapping()

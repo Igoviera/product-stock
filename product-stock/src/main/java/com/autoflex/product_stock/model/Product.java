@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,8 @@ public class Product {
     private BigDecimal price;
 
     @OneToMany(mappedBy = "product")
-    private Set<ProductMaterial> materials;
+    private Set<ProductMaterial> materials = new HashSet<>();
+
 
     public String getCode() {
         return code;

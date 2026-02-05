@@ -1,6 +1,7 @@
 package com.autoflex.product_stock.service;
 
-import com.autoflex.product_stock.model.Material;
+import com.autoflex.product_stock.dtos.MaterialDTO;
+import com.autoflex.product_stock.dtos.MaterialMapper;
 import com.autoflex.product_stock.repository.MaterialRepository;
 import org.springframework.stereotype.Service;
 
@@ -8,12 +9,14 @@ import org.springframework.stereotype.Service;
 public class MaterialService {
 
     private final MaterialRepository materialRepository;
+    private final MaterialMapper materialMapper;
 
-    public MaterialService(MaterialRepository materialRepository) {
+    public MaterialService(MaterialRepository materialRepository, MaterialMapper materialMapper) {
         this.materialRepository = materialRepository;
+        this.materialMapper = materialMapper;
     }
 
-    public Material create(Material material) {
-       return materialRepository.save(material);
+    public MaterialDTO create(MaterialDTO materialDTO) {
+       return materialMapper.toDTO(materialRepository.save(materialMapper.toEntity(materialDTO)));
     }
 }

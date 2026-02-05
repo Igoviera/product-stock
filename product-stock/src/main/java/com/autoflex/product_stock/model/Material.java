@@ -3,6 +3,7 @@ package com.autoflex.product_stock.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,7 @@ public class Material {
 
     @JsonIgnore
     @OneToMany(mappedBy = "material")
-    private Set<ProductMaterial> products;
+    private Set<ProductMaterial> products = new HashSet<>();;
 
     public void removeStockQuantity(int value){
         if (this.stockQuantity > value){

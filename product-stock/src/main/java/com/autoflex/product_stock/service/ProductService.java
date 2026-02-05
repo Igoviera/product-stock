@@ -32,8 +32,8 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-    public void create(Product product) {
-        productRepository.save(product);
+    public ProductDTO create(ProductDTO productDTO) {
+       return productMapper.toDTO(productRepository.save(productMapper.toEntity(productDTO)));
     }
 
     public Product getById(Long productId) {
@@ -53,7 +53,7 @@ public class ProductService {
 
         Map<Long, Integer> availableStock = new HashMap<>();
 
-        // carregar estoque inicial
+
         products.forEach(p -> p.getMaterials().forEach(pm -> availableStock.put(
                                 pm.getMaterial().getId(),
                                 pm.getMaterial().getStockQuantity()

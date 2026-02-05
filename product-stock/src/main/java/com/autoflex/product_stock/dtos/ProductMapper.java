@@ -14,8 +14,18 @@ public class ProductMapper {
         return new ProductDTO(
                 product.getCode(),
                 product.getName(),
-                product.getPrice(),
-                product.getMaterials().stream().collect(Collectors.toSet())
+                product.getPrice()
         );
+    }
+
+    public Product toEntity(ProductDTO dto){
+        if (dto == null) return null;
+
+        Product product = new Product();
+        product.setCode(dto.code());
+        product.setName(dto.name());
+        product.setPrice(dto.price());
+
+        return product;
     }
 }
