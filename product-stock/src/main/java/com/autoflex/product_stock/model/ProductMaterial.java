@@ -2,6 +2,7 @@ package com.autoflex.product_stock.model;
 
 import jakarta.persistence.*;
 
+
 @Entity
 public class ProductMaterial {
     @Id
@@ -15,6 +16,7 @@ public class ProductMaterial {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Material material;
+
 
     @Column(nullable = false)
     private Integer necessaryQuantity;

@@ -22,7 +22,7 @@ public class Product {
     private BigDecimal price;
 
     @OneToMany(mappedBy = "product")
-    private Set<Material> materials;
+    private Set<ProductMaterial> materials;
 
     public String getCode() {
         return code;

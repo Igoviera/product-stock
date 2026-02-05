@@ -2,6 +2,9 @@ package com.autoflex.product_stock.model;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
+@Entity
 public class Material {
 
     @Id
@@ -17,8 +20,8 @@ public class Material {
     @Column(nullable = false)
     private Integer stockQuantity;
 
-    @ManyToMany
-    private Product product;
+    @OneToMany(mappedBy = "material")
+    private Set<ProductMaterial> products;
 
     public String getCode() {
         return code;
@@ -42,5 +45,13 @@ public class Material {
 
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public Set<ProductMaterial> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<ProductMaterial> products) {
+        this.products = products;
     }
 }
