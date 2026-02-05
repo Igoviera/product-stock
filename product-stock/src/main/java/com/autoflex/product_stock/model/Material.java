@@ -1,5 +1,6 @@
 package com.autoflex.product_stock.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -20,8 +21,19 @@ public class Material {
     @Column(nullable = false)
     private Integer stockQuantity;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "material")
     private Set<ProductMaterial> products;
+
+    public void removeStockQuantity(int value){
+        if (this.stockQuantity > value){
+            this.stockQuantity -= value;
+        }
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getCode() {
         return code;
@@ -54,4 +66,15 @@ public class Material {
     public void setProducts(Set<ProductMaterial> products) {
         this.products = products;
     }
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", stockQuantity=" + stockQuantity +
+                ", products=" + products +
+                '}';
+    }
+
 }

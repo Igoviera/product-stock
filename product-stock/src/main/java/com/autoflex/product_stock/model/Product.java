@@ -1,5 +1,6 @@
 package com.autoflex.product_stock.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -46,5 +47,19 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Set<ProductMaterial> getMaterials() {
+        return materials;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", materials=" + materials +
+                '}';
     }
 }
