@@ -1,5 +1,6 @@
 package com.autoflex.product_stock.controller;
 
+import com.autoflex.product_stock.dtos.MaterialDTO;
 import com.autoflex.product_stock.dtos.ProductDTO;
 import com.autoflex.product_stock.dtos.ProductionSuggestionDTO;
 import com.autoflex.product_stock.repository.ProductRepository;
@@ -36,6 +37,11 @@ public class ProductController {
     @GetMapping("/{productId}")
     public ProductDTO getById(@Valid @PathVariable("productId") Long productId){
         return productService.getById(productId);
+    }
+
+    @PutMapping("/{productId}/update")
+    public ProductDTO update(@Valid @PathVariable("productId") Long productId, @RequestBody ProductDTO productDTO ){
+        return productService.update(productId, productDTO);
     }
 
     @DeleteMapping("/{productId}")

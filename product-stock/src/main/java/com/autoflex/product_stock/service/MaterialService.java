@@ -44,7 +44,14 @@ public class MaterialService {
         materialRepository.delete(material);
     }
 
-//    public MaterialDTO update(@Valid Long materialId, MaterialDTO materialDTO) {
-//        Material material = materialMapper.toEntity(getById(materialId));
-//    }
+    public MaterialDTO update(@Valid Long materialId, MaterialDTO materialDTO) {
+        Material materialFound = materialRepository.findById(materialId)
+                .orElseThrow(() -> new RecordNotFoundException("Material não encontrado com id: " + materialId));
+
+        materialFound.setName(materialDTO.name());
+        materialFound.setCode(materialDTO.code());
+        materialFound.setStockQuantity(materialDTO.stockQuantity());
+
+        return materialMapper.toDTO(materialRepository.save(materialFound));
+    }
 }

@@ -34,10 +34,10 @@ public class MaterialController {
         return materialService.getById(materialId);
     }
 
-//    @PutMapping("/{materialId}")
-//    public MaterialDTO update(@Valid @PathVariable("materialId") Long materialId, @RequestBody MaterialDTO materialDTO ){
-//        return materialService.update(materialId, materialDTO);
-//    }
+    @PutMapping("/{materialId}/update")
+    public MaterialDTO update(@Valid @PathVariable("materialId") Long materialId, @RequestBody MaterialDTO materialDTO ){
+        return materialService.update(materialId, materialDTO);
+    }
 
     @DeleteMapping("/{materialId}")
     public void delete(@Valid @PathVariable("materialId") Long materialId){

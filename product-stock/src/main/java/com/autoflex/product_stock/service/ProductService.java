@@ -1,5 +1,6 @@
 package com.autoflex.product_stock.service;
 
+import com.autoflex.product_stock.dtos.MaterialDTO;
 import com.autoflex.product_stock.dtos.ProductDTO;
 import com.autoflex.product_stock.dtos.ProductMapper;
 import com.autoflex.product_stock.dtos.ProductionSuggestionDTO;
@@ -97,5 +98,16 @@ public class ProductService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RecordNotFoundException("Produto não encontrado com id: " +  productId));
         productRepository.delete(product);
+    }
+
+    public ProductDTO update(@Valid Long productId, ProductDTO productDTO) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RecordNotFoundException("Produto não encontrado com id: " +  productId));
+
+        product.setCode(productDTO.code());
+        product.setName(productDTO.name());
+        product.setPrice(productDTO.price());
+
+       return productMapper.toDTO(productRepository.save(product));
     }
 }
