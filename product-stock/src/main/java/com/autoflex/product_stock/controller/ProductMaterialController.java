@@ -2,19 +2,17 @@ package com.autoflex.product_stock.controller;
 
 
 import com.autoflex.product_stock.dtos.ProductMaterialDTO;
-import com.autoflex.product_stock.model.Product;
-import com.autoflex.product_stock.model.ProductMaterial;
-import com.autoflex.product_stock.repository.ProductRepository;
 import com.autoflex.product_stock.service.ProductMaterialService;
-import com.autoflex.product_stock.service.ProductService;
-import org.springframework.data.domain.Sort;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("api/v1/compositions")
+@Tag(name = "Material Production", description = "Endpoints para Vincular matéria-prima ao produto")
 public class ProductMaterialController {
 
     private final ProductMaterialService productMaterialService;
@@ -27,8 +25,15 @@ public class ProductMaterialController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public ProductMaterialDTO create(@RequestBody ProductMaterialDTO productMaterialDTO){
-       return productMaterialService.create(productMaterialDTO);
+    @Operation(
+            summary = "Vincular matéria-prima ao produto",
+            description = "Envia os dados necessários para a produção de um produto utilizando uma matéria-prima específica."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Vínculo criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+    })
+    public ProductMaterialDTO create(@RequestBody ProductMaterialDTO productMaterialDTO) {
+        return productMaterialService.create(productMaterialDTO);
     }
-
 }
