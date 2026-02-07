@@ -2,15 +2,12 @@ package com.autoflex.product_stock.controller;
 
 import com.autoflex.product_stock.dtos.ProductDTO;
 import com.autoflex.product_stock.dtos.ProductionSuggestionDTO;
-import com.autoflex.product_stock.model.Product;
 import com.autoflex.product_stock.repository.ProductRepository;
 import com.autoflex.product_stock.service.ProductService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -25,6 +22,7 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ProductDTO create(@Valid @RequestBody ProductDTO productDTO){
         return productService.create(productDTO);
@@ -36,8 +34,13 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public Product getById(@PathVariable("productId") Long productId){
+    public ProductDTO getById(@Valid @PathVariable("productId") Long productId){
         return productService.getById(productId);
+    }
+
+    @DeleteMapping("/{productId}")
+    public void delete(@Valid @PathVariable("productId") Long productId){
+        productService.delete(productId);
     }
 
     @GetMapping("/suggest")

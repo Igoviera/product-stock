@@ -12,6 +12,7 @@ public class ProductMapper {
         if (product == null) return null;
 
         return new ProductDTO(
+                product.getId(),
                 product.getCode(),
                 product.getName(),
                 product.getPrice()

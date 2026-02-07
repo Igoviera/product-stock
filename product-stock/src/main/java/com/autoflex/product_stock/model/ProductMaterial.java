@@ -3,6 +3,8 @@ package com.autoflex.product_stock.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.Map;
+
 
 @Entity
 public class ProductMaterial {

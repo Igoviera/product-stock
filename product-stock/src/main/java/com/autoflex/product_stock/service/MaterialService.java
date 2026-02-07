@@ -2,8 +2,13 @@ package com.autoflex.product_stock.service;
 
 import com.autoflex.product_stock.dtos.MaterialDTO;
 import com.autoflex.product_stock.dtos.MaterialMapper;
+import com.autoflex.product_stock.exception.RecordNotFoundException;
 import com.autoflex.product_stock.repository.MaterialRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MaterialService {
@@ -18,5 +23,16 @@ public class MaterialService {
 
     public MaterialDTO create(MaterialDTO materialDTO) {
        return materialMapper.toDTO(materialRepository.save(materialMapper.toEntity(materialDTO)));
+    }
+
+    public MaterialDTO getById(Long materialId) {
+        return materialMapper.toDTO(materialRepository.findById(materialId)
+                .orElseThrow(() -> new RecordNotFoundException("Material não encontrado com id: " + materialId)));
+    }
+
+    public Set<MaterialDTO> getAll() {
+        return materialRepository.findAll().stream()
+                .map(material -> materialMapper.toDTO(material))
+                .collect(Collectors.toSet());
     }
 }

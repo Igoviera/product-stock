@@ -26,12 +26,6 @@ public class Material {
     @OneToMany(mappedBy = "material")
     private Set<ProductMaterial> products = new HashSet<>();;
 
-    public void removeStockQuantity(int value){
-        if (this.stockQuantity > value){
-            this.stockQuantity -= value;
-        }
-    }
-
     public Long getId() {
         return id;
     }

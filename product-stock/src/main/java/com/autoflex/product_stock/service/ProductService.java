@@ -10,6 +10,7 @@ import com.autoflex.product_stock.model.ProductMaterial;
 import com.autoflex.product_stock.repository.MaterialRepository;
 import com.autoflex.product_stock.repository.ProductMaterialRepository;
 import com.autoflex.product_stock.repository.ProductRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -36,9 +37,9 @@ public class ProductService {
        return productMapper.toDTO(productRepository.save(productMapper.toEntity(productDTO)));
     }
 
-    public Product getById(Long productId) {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new RecordNotFoundException("Product not found"));
+    public ProductDTO getById(Long productId) {
+        return productMapper.toDTO(productRepository.findById(productId)
+                .orElseThrow(() -> new RecordNotFoundException("Produto não encontrado com id: " + productId)));
     }
 
     public Set<ProductDTO> getAll() {
@@ -48,13 +49,11 @@ public class ProductService {
     }
 
     public ProductionSuggestionDTO suggestProduction() {
-
         List<Product> products = productRepository.findAll(Sort.by(Sort.Direction.DESC, "price"));
-
         Map<Long, Integer> availableStock = new HashMap<>();
 
-
-        products.forEach(p -> p.getMaterials().forEach(pm -> availableStock.put(
+        products.forEach(p -> p.getMaterials()
+                .forEach(pm -> availableStock.put(
                                 pm.getMaterial().getId(),
                                 pm.getMaterial().getStockQuantity()
                         )
@@ -76,24 +75,15 @@ public class ProductService {
 
             if (maxProduction <= 0) continue;
 
-            // consumir estoque
             for (ProductMaterial pm : product.getMaterials()) {
                 Long materialId = pm.getMaterial().getId();
-
-                int remaining =
-                        availableStock.get(materialId)
-                                - (pm.getNecessaryQuantity() * maxProduction);
-
+                int remaining = availableStock.get(materialId) - (pm.getNecessaryQuantity() * maxProduction);
                 availableStock.put(materialId, remaining);
             }
 
             productNames.add(product.getName());
             totalProduced += maxProduction;
-
-            totalValue = totalValue.add(
-                    product.getPrice()
-                            .multiply(BigDecimal.valueOf(maxProduction))
-            );
+            totalValue = totalValue.add(product.getPrice().multiply(BigDecimal.valueOf(maxProduction)));
         }
 
         return new ProductionSuggestionDTO(
@@ -103,5 +93,9 @@ public class ProductService {
         );
     }
 
-
+    public void delete(@Valid Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RecordNotFoundException("Produto não encontrado com id: " +  productId));
+        productRepository.delete(product);
+    }
 }

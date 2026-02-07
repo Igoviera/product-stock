@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,9 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<ProductMaterial> materials = new HashSet<>();
 
+    public Long getId() {
+        return id;
+    }
 
     public String getCode() {
         return code;
