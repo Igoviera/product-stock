@@ -23,7 +23,7 @@ public class Material {
     private Integer stockQuantity;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "material")
+    @OneToMany(mappedBy = "material", cascade = CascadeType.ALL)
     private Set<ProductMaterial> products = new HashSet<>();;
 
     public Long getId() {

@@ -1,7 +1,6 @@
 package com.autoflex.product_stock.controller;
 
 import com.autoflex.product_stock.dtos.MaterialDTO;
-import com.autoflex.product_stock.dtos.ProductDTO;
 import com.autoflex.product_stock.service.MaterialService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -33,5 +32,15 @@ public class MaterialController {
     @GetMapping("/{materialId}")
     public MaterialDTO getById(@Valid @PathVariable("materialId") Long materialId){
         return materialService.getById(materialId);
+    }
+
+//    @PutMapping("/{materialId}")
+//    public MaterialDTO update(@Valid @PathVariable("materialId") Long materialId, @RequestBody MaterialDTO materialDTO ){
+//        return materialService.update(materialId, materialDTO);
+//    }
+
+    @DeleteMapping("/{materialId}")
+    public void delete(@Valid @PathVariable("materialId") Long materialId){
+        materialService.delete(materialId);
     }
 }

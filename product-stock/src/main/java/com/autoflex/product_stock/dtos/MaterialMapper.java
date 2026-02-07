@@ -10,6 +10,7 @@ public class MaterialMapper {
         if (material == null) return null;
 
         return new MaterialDTO(
+                material.getId(),
                 material.getCode(),
                 material.getName(),
                 material.getStockQuantity()

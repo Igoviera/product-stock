@@ -3,6 +3,8 @@ package com.autoflex.product_stock.service;
 import com.autoflex.product_stock.dtos.MaterialDTO;
 import com.autoflex.product_stock.dtos.MaterialMapper;
 import com.autoflex.product_stock.exception.RecordNotFoundException;
+import com.autoflex.product_stock.model.Material;
+import com.autoflex.product_stock.model.Product;
 import com.autoflex.product_stock.repository.MaterialRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
@@ -35,4 +37,14 @@ public class MaterialService {
                 .map(material -> materialMapper.toDTO(material))
                 .collect(Collectors.toSet());
     }
+
+    public void delete(@Valid Long materialId) {
+        Material material = materialRepository.findById(materialId)
+                .orElseThrow(() -> new RecordNotFoundException("Material não encontrado com id: " + materialId));
+        materialRepository.delete(material);
+    }
+
+//    public MaterialDTO update(@Valid Long materialId, MaterialDTO materialDTO) {
+//        Material material = materialMapper.toEntity(getById(materialId));
+//    }
 }

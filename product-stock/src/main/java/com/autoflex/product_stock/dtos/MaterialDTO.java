@@ -6,6 +6,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 public record MaterialDTO (
+        Long id,
         @NotBlank(message = "O código é obrigatório")
         @Size(min = 4, max = 10, message = "O código deve ter entre 4 e 10 caracteres")
         String code,
