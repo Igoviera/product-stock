@@ -2,6 +2,7 @@ package com.autoflex.product_stock.service;
 
 import com.autoflex.product_stock.dtos.ProductMaterialDTO;
 import com.autoflex.product_stock.dtos.ProductMaterialMapper;
+import com.autoflex.product_stock.exception.RecordNotFoundException;
 import com.autoflex.product_stock.model.Material;
 import com.autoflex.product_stock.model.Product;
 import com.autoflex.product_stock.model.ProductMaterial;
@@ -29,8 +30,11 @@ public class ProductMaterialService {
     public ProductMaterialDTO create(ProductMaterialDTO productMaterialDTO) {
         ProductMaterial productMaterial = productMaterialMapper.toEntity(productMaterialDTO);
 
-        Product product = productRepository.findByCode(productMaterial.getProduct().getCode());
-        Material material = materialRepository.findByCode(productMaterial.getMaterial().getCode());
+        Product product = productRepository.findByCode(productMaterial.getProduct().getCode())
+                .orElseThrow(() -> new RecordNotFoundException("Produto não encontrado com o código: " + productMaterialDTO.codeProduct()));
+
+        Material material = materialRepository.findByCode(productMaterial.getMaterial().getCode())
+                .orElseThrow(() -> new RecordNotFoundException("Matérial não encontrado com o código: " + productMaterialDTO.codeMaterial()));
 
 
         ProductMaterial newProductMaterial = new ProductMaterial();
