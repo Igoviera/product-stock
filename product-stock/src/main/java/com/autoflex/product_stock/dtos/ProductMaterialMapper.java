@@ -12,6 +12,7 @@ public class ProductMaterialMapper {
        if (productMaterial == null) return null;
 
        return new ProductMaterialDTO(
+               productMaterial.getId(),
                productMaterial.getProduct().getCode(),
                productMaterial.getMaterial().getCode(),
                productMaterial.getNecessaryQuantity()

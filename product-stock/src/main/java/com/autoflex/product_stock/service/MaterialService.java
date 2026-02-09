@@ -6,6 +6,7 @@ import com.autoflex.product_stock.exception.RecordNotFoundException;
 import com.autoflex.product_stock.model.Material;
 import com.autoflex.product_stock.model.Product;
 import com.autoflex.product_stock.repository.MaterialRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class MaterialService {
         this.materialMapper = materialMapper;
     }
 
+    @Transactional
     public MaterialDTO create(MaterialDTO materialDTO) {
         return materialMapper.toDTO(materialRepository.save(materialMapper.toEntity(materialDTO)));
     }
@@ -38,12 +40,14 @@ public class MaterialService {
                 .collect(Collectors.toSet());
     }
 
+    @Transactional
     public void delete(@Valid Long materialId) {
         Material material = materialRepository.findById(materialId)
                 .orElseThrow(() -> new RecordNotFoundException("Material não encontrado com id: " + materialId));
         materialRepository.delete(material);
     }
 
+    @Transactional
     public MaterialDTO update(@Valid Long materialId, MaterialDTO materialDTO) {
         Material materialFound = materialRepository.findById(materialId)
                 .orElseThrow(() -> new RecordNotFoundException("Material não encontrado com id: " + materialId));

@@ -9,7 +9,12 @@ import com.autoflex.product_stock.model.ProductMaterial;
 import com.autoflex.product_stock.repository.MaterialRepository;
 import com.autoflex.product_stock.repository.ProductMaterialRepository;
 import com.autoflex.product_stock.repository.ProductRepository;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductMaterialService {
@@ -27,6 +32,7 @@ public class ProductMaterialService {
         this.productMaterialMapper = productMaterialMapper;
     }
 
+    @Transactional
     public ProductMaterialDTO create(ProductMaterialDTO productMaterialDTO) {
         ProductMaterial productMaterial = productMaterialMapper.toEntity(productMaterialDTO);
 
@@ -45,5 +51,34 @@ public class ProductMaterialService {
 
         ProductMaterial saved = productMaterialRepository.save(newProductMaterial);
         return productMaterialMapper.toDTO(saved);
+    }
+
+    public ProductMaterialDTO getById(@Valid Long compositionId) {
+        ProductMaterial productMaterial = productMaterialRepository.findById(compositionId)
+                .orElseThrow(() -> new RecordNotFoundException("Composição de produto não encontrada com id: " + compositionId));
+
+        return  productMaterialMapper.toDTO(productMaterial);
+    }
+
+    public Set<ProductMaterialDTO> getAll() {
+        return productMaterialRepository.findAll()
+                .stream().map(productMaterial -> productMaterialMapper.toDTO(productMaterial))
+                .collect(Collectors.toSet());
+    }
+
+    @Transactional
+    public ProductMaterialDTO update(@Valid Long compositionId, ProductMaterialDTO productMaterialDTO) {
+        ProductMaterial productMaterial = productMaterialRepository.findById(compositionId)
+                .orElseThrow(() -> new RecordNotFoundException("Composição não encontrada"));
+
+        Product product = productRepository.findByCode(productMaterialDTO.codeProduct())
+                .orElseThrow(() -> new RecordNotFoundException("Produto não encontrado"));
+
+        Material material = materialRepository.findByCode(productMaterialDTO.codeMaterial())
+                .orElseThrow(() -> new RecordNotFoundException("Material não encontrado"));
+
+        productMaterial.update(product, material, productMaterialDTO.necessaryQuantity());
+
+        return productMaterialMapper.toDTO(productMaterialRepository.save(productMaterial));
     }
 }

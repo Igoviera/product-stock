@@ -2,6 +2,9 @@ package com.autoflex.product_stock.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 
 @Entity
@@ -31,6 +34,16 @@ public class ProductMaterial {
         this.necessaryQuantity = necessaryQuantity;
     }
 
+    public void update(Product product, Material material, Integer necessaryQuantity) {
+        this.product = product;
+        this.material = material;
+        this.necessaryQuantity = necessaryQuantity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -46,4 +59,5 @@ public class ProductMaterial {
     public void setNecessaryQuantity(Integer necessaryQuantity) {
         this.necessaryQuantity = necessaryQuantity;
     }
+
 }

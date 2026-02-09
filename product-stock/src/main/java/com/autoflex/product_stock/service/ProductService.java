@@ -9,6 +9,7 @@ import com.autoflex.product_stock.model.ProductMaterial;
 import com.autoflex.product_stock.repository.MaterialRepository;
 import com.autoflex.product_stock.repository.ProductMaterialRepository;
 import com.autoflex.product_stock.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
+    @Transactional
     public ProductDTO create(ProductDTO productDTO) {
         return productMapper.toDTO(productRepository.save(productMapper.toEntity(productDTO)));
     }
@@ -92,12 +94,14 @@ public class ProductService {
         );
     }
 
+    @Transactional
     public void delete(@Valid Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RecordNotFoundException("Produto não encontrado com id: " + productId));
         productRepository.delete(product);
     }
 
+    @Transactional
     public ProductDTO update(@Valid Long productId, ProductDTO productDTO) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RecordNotFoundException("Produto não encontrado com id: " + productId));
