@@ -24,11 +24,10 @@ public class ProductMaterialMapper {
        Product product = new Product(dto.codeProduct());
        Material material = new Material(dto.codeMaterial());
 
-       ProductMaterial productMaterial = new ProductMaterial();
-       productMaterial.setProduct(product);
-       productMaterial.setMaterial(material);
-       productMaterial.setNecessaryQuantity(dto.necessaryQuantity());
-
-       return productMaterial;
+       return new ProductMaterial(
+               product,
+               material,
+               dto.necessaryQuantity()
+       );
    }
 }

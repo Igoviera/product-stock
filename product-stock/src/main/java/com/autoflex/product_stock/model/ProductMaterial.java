@@ -22,20 +22,21 @@ public class ProductMaterial {
     @Column(nullable = false)
     private Integer necessaryQuantity;
 
+    protected ProductMaterial() {
+    }
+
+    public ProductMaterial(Product product, Material material, Integer necessaryQuantity) {
+        this.product = product;
+        this.material = material;
+        this.necessaryQuantity = necessaryQuantity;
+    }
+
     public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public Material getMaterial() {
         return material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
     }
 
     public Integer getNecessaryQuantity() {

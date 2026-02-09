@@ -37,10 +37,11 @@ public class ProductMaterialService {
                 .orElseThrow(() -> new RecordNotFoundException("Matérial não encontrado com o código: " + productMaterialDTO.codeMaterial()));
 
 
-        ProductMaterial newProductMaterial = new ProductMaterial();
-        newProductMaterial.setProduct(product);
-        newProductMaterial.setMaterial(material);
-        newProductMaterial.setNecessaryQuantity(productMaterial.getNecessaryQuantity());
+        ProductMaterial newProductMaterial = new ProductMaterial(
+                product,
+                material,
+                productMaterial.getNecessaryQuantity()
+        );
 
         ProductMaterial saved = productMaterialRepository.save(newProductMaterial);
         return productMaterialMapper.toDTO(saved);
