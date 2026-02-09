@@ -14,7 +14,7 @@ public record ProductDTO(
         String code,
 
         @NotBlank(message = "O nome é obrigatório")
-        @Size(min = 2, max = 20, message = "O nome deve ter entre 2 e 20 caracteres")
+        @Size(min = 2, max = 50, message = "O nome deve ter entre 2 e 20 caracteres")
         String name,
 
         @NotNull(message = "O valor é obrigatório")

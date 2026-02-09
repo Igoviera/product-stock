@@ -1,11 +1,10 @@
 package com.autoflex.product_stock.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -24,8 +23,28 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductMaterial> materials = new HashSet<>();
+
+    protected Product() {
+    }
+
+    public Product(String code, String name, BigDecimal price) {
+        this.code = code;
+        this.name = name;
+        this.price = price;
+        this.materials = materials;
+    }
+
+    public Product(String code) {
+        this.code = code;
+    }
+
+    public void update(String code, String name, BigDecimal price){
+        this.code = code;
+        this.name = name;
+        this.price = price;
+    }
 
     public Long getId() {
         return id;
@@ -35,24 +54,12 @@ public class Product {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public BigDecimal getPrice() {
         return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public Set<ProductMaterial> getMaterials() {
@@ -67,5 +74,17 @@ public class Product {
                 ", price=" + price +
                 ", materials=" + materials +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) && Objects.equals(code, product.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, code);
     }
 }

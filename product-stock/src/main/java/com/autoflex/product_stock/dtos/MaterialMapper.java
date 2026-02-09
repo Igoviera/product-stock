@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MaterialMapper {
 
-    public MaterialDTO toDTO(Material material){
+    public MaterialDTO toDTO(Material material) {
         if (material == null) return null;
 
         return new MaterialDTO(
@@ -17,14 +17,13 @@ public class MaterialMapper {
         );
     }
 
-    public Material toEntity(MaterialDTO dto){
+    public Material toEntity(MaterialDTO dto) {
         if (dto == null) return null;
 
-        Material material = new Material();
-        material.setCode(dto.code());
-        material.setName(dto.name());
-        material.setStockQuantity(dto.stockQuantity());
-
-        return material;
+        return  new Material(
+                dto.code(),
+                dto.name(),
+                dto.stockQuantity()
+        );
     }
 }

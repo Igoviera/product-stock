@@ -24,7 +24,7 @@ public class MaterialService {
     }
 
     public MaterialDTO create(MaterialDTO materialDTO) {
-       return materialMapper.toDTO(materialRepository.save(materialMapper.toEntity(materialDTO)));
+        return materialMapper.toDTO(materialRepository.save(materialMapper.toEntity(materialDTO)));
     }
 
     public MaterialDTO getById(Long materialId) {
@@ -48,9 +48,11 @@ public class MaterialService {
         Material materialFound = materialRepository.findById(materialId)
                 .orElseThrow(() -> new RecordNotFoundException("Material não encontrado com id: " + materialId));
 
-        materialFound.setName(materialDTO.name());
-        materialFound.setCode(materialDTO.code());
-        materialFound.setStockQuantity(materialDTO.stockQuantity());
+        materialFound.update(
+                materialDTO.name(),
+                materialDTO.code(),
+                materialDTO.stockQuantity()
+        );
 
         return materialMapper.toDTO(materialRepository.save(materialFound));
     }

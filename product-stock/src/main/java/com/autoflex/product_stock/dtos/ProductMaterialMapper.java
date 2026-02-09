@@ -21,11 +21,8 @@ public class ProductMaterialMapper {
    public ProductMaterial toEntity(ProductMaterialDTO dto){
        if (dto == null) return null;
 
-       Product product = new Product();
-       product.setCode(dto.codeProduct());
-
-       Material material = new Material();
-       material.setCode(dto.codeMaterial());
+       Product product = new Product(dto.codeProduct());
+       Material material = new Material(dto.codeMaterial());
 
        ProductMaterial productMaterial = new ProductMaterial();
        productMaterial.setProduct(product);

@@ -102,9 +102,11 @@ public class ProductService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RecordNotFoundException("Produto não encontrado com id: " + productId));
 
-        product.setCode(productDTO.code());
-        product.setName(productDTO.name());
-        product.setPrice(productDTO.price());
+        product.update(
+                productDTO.code(),
+                productDTO.name(),
+                productDTO.price()
+        );
 
         return productMapper.toDTO(productRepository.save(product));
     }

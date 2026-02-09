@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 @Component
 public class ProductMapper {
 
-    public ProductDTO toDTO(Product product){
+    public ProductDTO toDTO(Product product) {
         if (product == null) return null;
 
         return new ProductDTO(
@@ -19,14 +19,13 @@ public class ProductMapper {
         );
     }
 
-    public Product toEntity(ProductDTO dto){
+    public Product toEntity(ProductDTO dto) {
         if (dto == null) return null;
 
-        Product product = new Product();
-        product.setCode(dto.code());
-        product.setName(dto.name());
-        product.setPrice(dto.price());
-
-        return product;
+       return new Product(
+                dto.code(),
+                dto.name(),
+                dto.price()
+        );
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -24,7 +25,26 @@ public class Material {
 
     @JsonIgnore
     @OneToMany(mappedBy = "material", cascade = CascadeType.ALL)
-    private Set<ProductMaterial> products = new HashSet<>();;
+    private Set<ProductMaterial> products = new HashSet<>();
+
+    protected Material() {
+    }
+
+    public Material(String code, String name, Integer stockQuantity) {
+        this.code = code;
+        this.name = name;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public Material(String code) {
+        this.code = code;
+    }
+
+    public void update (String code, String name, Integer stockQuantity) {
+        this.code = code;
+        this.name = name;
+        this.stockQuantity = stockQuantity;
+    }
 
     public Long getId() {
         return id;
@@ -34,16 +54,8 @@ public class Material {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getStockQuantity() {
@@ -72,4 +84,15 @@ public class Material {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Material material = (Material) o;
+        return Objects.equals(id, material.id) && Objects.equals(code, material.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, code);
+    }
 }
