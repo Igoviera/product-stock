@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000") // frontend Next.js
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                //.allowedHeaders("*")
+                .allowedHeaders("*")
                 .allowCredentials(true);
     }
 }
