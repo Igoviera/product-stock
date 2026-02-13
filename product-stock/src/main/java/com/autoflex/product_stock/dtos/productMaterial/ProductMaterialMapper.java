@@ -1,4 +1,4 @@
-package com.autoflex.product_stock.dtos;
+package com.autoflex.product_stock.dtos.productMaterial;
 
 import com.autoflex.product_stock.model.Material;
 import com.autoflex.product_stock.model.Product;

@@ -1,6 +1,6 @@
 package com.autoflex.product_stock.controller;
 
-import com.autoflex.product_stock.dtos.ProductMaterialDTO;
+import com.autoflex.product_stock.dtos.productMaterial.ProductMaterialDTO;
 import com.autoflex.product_stock.service.ProductMaterialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

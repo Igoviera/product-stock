@@ -1,9 +1,7 @@
-package com.autoflex.product_stock.dtos;
+package com.autoflex.product_stock.dtos.product;
 
 import com.autoflex.product_stock.model.Product;
 import org.springframework.stereotype.Component;
-
-import java.util.stream.Collectors;
 
 @Component
 public class ProductMapper {

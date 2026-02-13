@@ -1,7 +1,7 @@
 package com.autoflex.product_stock.service;
 
-import com.autoflex.product_stock.dtos.ProductMaterialDTO;
-import com.autoflex.product_stock.dtos.ProductMaterialMapper;
+import com.autoflex.product_stock.dtos.productMaterial.ProductMaterialDTO;
+import com.autoflex.product_stock.dtos.productMaterial.ProductMaterialMapper;
 import com.autoflex.product_stock.exception.RecordNotFoundException;
 import com.autoflex.product_stock.model.Material;
 import com.autoflex.product_stock.model.Product;

@@ -1,7 +1,7 @@
 package com.autoflex.product_stock.controller;
 
-import com.autoflex.product_stock.dtos.ProductDTO;
-import com.autoflex.product_stock.dtos.ProductionSuggestionDTO;
+import com.autoflex.product_stock.dtos.product.ProductDTO;
+import com.autoflex.product_stock.dtos.product.ProductionSuggestionDTO;
 import com.autoflex.product_stock.repository.ProductRepository;
 import com.autoflex.product_stock.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;

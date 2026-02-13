@@ -1,8 +1,8 @@
 package com.autoflex.product_stock.service;
 
-import com.autoflex.product_stock.dtos.ProductDTO;
-import com.autoflex.product_stock.dtos.ProductMapper;
-import com.autoflex.product_stock.dtos.ProductionSuggestionDTO;
+import com.autoflex.product_stock.dtos.product.ProductDTO;
+import com.autoflex.product_stock.dtos.product.ProductMapper;
+import com.autoflex.product_stock.dtos.product.ProductionSuggestionDTO;
 import com.autoflex.product_stock.exception.RecordNotFoundException;
 import com.autoflex.product_stock.model.Product;
 import com.autoflex.product_stock.model.ProductMaterial;

@@ -1,10 +1,9 @@
 package com.autoflex.product_stock.service;
 
-import com.autoflex.product_stock.dtos.MaterialDTO;
-import com.autoflex.product_stock.dtos.MaterialMapper;
+import com.autoflex.product_stock.dtos.material.MaterialDTO;
+import com.autoflex.product_stock.dtos.material.MaterialMapper;
 import com.autoflex.product_stock.exception.RecordNotFoundException;
 import com.autoflex.product_stock.model.Material;
-import com.autoflex.product_stock.model.Product;
 import com.autoflex.product_stock.repository.MaterialRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

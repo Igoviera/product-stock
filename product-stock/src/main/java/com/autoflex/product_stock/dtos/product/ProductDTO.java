@@ -1,4 +1,4 @@
-package com.autoflex.product_stock.dtos;
+package com.autoflex.product_stock.dtos.product;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
