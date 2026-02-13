@@ -1,6 +1,5 @@
 package com.autoflex.product_stock.controller;
 
-import com.autoflex.product_stock.dtos.ProductDTO;
 import com.autoflex.product_stock.dtos.ProductMaterialDTO;
 import com.autoflex.product_stock.service.ProductMaterialService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -76,5 +75,19 @@ public class ProductMaterialController {
     })
     public ProductMaterialDTO update(@Valid @PathVariable("compositionId") Long compositionId, @RequestBody ProductMaterialDTO productMaterialDTO ){
         return productMaterialService.update(compositionId, productMaterialDTO);
+    }
+
+
+    @DeleteMapping("/{compositionId}")
+    @Operation(
+            summary = "Remover a composição do sistema",
+            description = "Realiza a exclusão da composição."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Composição removida com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Composição não encontrado"),
+    })
+    public void delete(@Valid @PathVariable("compositionId") Long compositionId){
+        productMaterialService.delete(compositionId);
     }
 }

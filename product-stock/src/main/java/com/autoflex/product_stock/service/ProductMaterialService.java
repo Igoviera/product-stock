@@ -81,4 +81,10 @@ public class ProductMaterialService {
 
         return productMaterialMapper.toDTO(productMaterialRepository.save(productMaterial));
     }
+
+    public void delete(@Valid Long compositionId) {
+        ProductMaterial productMaterial = productMaterialRepository.findById(compositionId)
+                .orElseThrow(() -> new RecordNotFoundException("Composição não encontrada com id: " + compositionId));
+        productMaterialRepository.delete(productMaterial);
+    }
 }
