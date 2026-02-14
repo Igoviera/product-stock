@@ -33,7 +33,6 @@ public class Product {
         this.code = code;
         this.name = name;
         this.price = price;
-        this.materials = materials;
     }
 
     public Product(String code) {
@@ -64,6 +63,10 @@ public class Product {
 
     public Set<ProductMaterial> getMaterials() {
         return materials;
+    }
+
+    public void setMaterials(Set<ProductMaterial> materials) {
+        this.materials = materials;
     }
 
     @Override
