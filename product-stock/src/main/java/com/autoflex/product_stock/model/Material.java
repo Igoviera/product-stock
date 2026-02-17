@@ -88,11 +88,11 @@ public class Material {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Material material = (Material) o;
-        return Objects.equals(id, material.id) && Objects.equals(code, material.code);
+        return Objects.equals(code, material.code);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code);
+        return Objects.hashCode(code);
     }
 }
